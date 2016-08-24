@@ -7,6 +7,9 @@
 
 #include <CDKVersion.h>
 
+struct SSystemGlobalEnvironment;
+struct SSystemInitParams;
+
 namespace PluginManager
 {
     /**
@@ -184,10 +187,10 @@ namespace PluginManager
         /**
         * @brief Return the requested concrete interface version if implemented by this plugin version
         * @param sInterfaceVersion The requested interface version.
-        * @arg NULL for most current.
-        * @return NULL or concrete interface in the requested version is available.
+        * @arg 0 for most current.
+        * @return 0 or concrete interface in the requested version is available.
         */
-        virtual void* GetConcreteInterface( const char* sInterfaceVersion = NULL ) = 0;
+        virtual void* GetConcreteInterface( const char* sInterfaceVersion = 0 ) = 0;
 
         /**
         * @brief Return the current extended interface version
@@ -198,10 +201,10 @@ namespace PluginManager
         /**
         * @brief Reserved for future use to ensure ABI compatibility
         * @param sInterfaceVersion The requested interface version.
-        * @arg NULL for most current.
-        * @return NULL or concrete interface in the requested version is available.
+        * @arg 0 for most current.
+        * @return 0 or concrete interface in the requested version is available.
         */
-        virtual void* GetExtendedInterface( const char* sInterfaceVersion = NULL ) = 0;
+        virtual void* GetExtendedInterface( const char* sInterfaceVersion = 0 ) = 0;
 
         /**
         * @brief Register Types independent of Init / InitDependencies
@@ -259,10 +262,10 @@ extern "C"
     /**
     * @brief Create the Plugin Base Interface in the requested version
     * @param sInterfaceVersion The requested interface version.
-    * @arg NULL for most current.
-    * @return NULL or concrete interface in the requested version is available.
+    * @arg 0 for most current.
+    * @return 0 or concrete interface in the requested version is available.
     */
-    DLL_EXPORT PluginManager::IPluginBase* GetPluginInterface( const char* sInterfaceVersion = NULL );
+	__declspec(dllexport) PluginManager::IPluginBase* GetPluginInterface( const char* sInterfaceVersion = 0 );
 }
 
 /** Now some macros required for entity classes */
@@ -278,8 +281,8 @@ extern "C"
 #define REGISTER_EDITOR_VOLUME_CLASS(frameWork, className)                                          \
     {                                                                                                     \
         IGameVolumes* pGameVolumes = frameWork->GetIGameVolumesManager();                                 \
-        IGameVolumesEdit* pGameVolumesEdit = pGameVolumes ? pGameVolumes->GetEditorInterface() : NULL;    \
-        if (pGameVolumesEdit != NULL)                                                                     \
+        IGameVolumesEdit* pGameVolumesEdit = pGameVolumes ? pGameVolumes->GetEditorInterface() : 0;    \
+        if (pGameVolumesEdit != 0)                                                                     \
         {                                                                                                 \
             pGameVolumesEdit->RegisterEntityClass( className );                                             \
         }                                                                                                 \
@@ -339,7 +342,7 @@ extern "C"
             }\
         };\
         static C##name##Creator _creator;\
-        framework->GetIGameObjectSystem()->RegisterExtension(#name, &_creator, NULL);\
+        framework->GetIGameObjectSystem()->RegisterExtension(#name, &_creator, 0);\
     }
 
 #endif

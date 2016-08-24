@@ -4,7 +4,7 @@
 
 #include <IPluginBase.h>
 #include <IPluginManager.h>
-
+#include <ISystem.h>
 #if USE_NEW_INCLUDE_PATHS
 #include <CrySystem/CryVersion.h>
 #else
@@ -125,10 +125,11 @@ namespace PluginManager
                 return sAPIVersion && SFileVersion( sAPIVersion ) == SFileVersion( PLUGIN_COMPILED_CDK_VERSION );
             };
 
+			// virtual bool Init() { return m_bIsInitialized = true; }
             virtual bool Init( SSystemGlobalEnvironment& env, SSystemInitParams& startupParams, IPluginBase* pPluginManager, const char* sPluginDirectory )
             {
                 // Initialize Module
-                ModuleInitISystem( env.pSystem, GetName() );
+                // ModuleInitISystem( env.pSystem, GetName() );
                 m_bIsInitialized = true;
 
 #if !defined(PLUGINMANAGER_EXPORTS)

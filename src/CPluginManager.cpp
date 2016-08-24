@@ -4,7 +4,7 @@
 #include <CPluginManager.h>
 #include <PMUtils.hpp>
 
-#include <mhook.h>
+#include "C:\Users\sfink\OneDrive\Documents\Visual Studio 2015\Libraries\CryCEF\Plugin_SDK\mhook-lib\mhook.h"
 #include <HookTool.hpp>
 
 #define COMMAND_LIST        "pm_list"

@@ -1,10 +1,13 @@
 /* CE3 Plugin Manager - for licensing and copyright see license.txt */
+#if 0
+#ifndef __HOOKTOOLSHCRAP__
+#define __HOOKTOOLSHCRAP__
 #pragma once
 
 #if USE_NEW_INCLUDE_PATHS
 #include <CryCore/Platform/CryWindows.h>
 #else
-#include <CryWindows.h>
+// #include <CryWindows.h>
 #endif
 
 // Check memory address access
@@ -267,3 +270,6 @@ int VTableIndex( F f )
     GetIndex getIndex = ( GetIndex )f;
     return ( t->*getIndex )();
 };
+
+#endif
+#endif

@@ -507,7 +507,7 @@ namespace PluginManager
         {
             if ( gEnv && gEnv->pConsole )
             {
-                gEnv->pConsole->ExecuteString( ( const char* )sCommand );
+//                gEnv->pConsole->ExecuteString( ( const char* )sCommand );
             }
         }
     }
@@ -595,7 +595,7 @@ namespace PluginManager
 
         if ( nCode )
         {
-            FormatMessage(
+            FormatMessageA(
                 FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS | FORMAT_MESSAGE_ALLOCATE_BUFFER,
                 NULL,
                 nCode,
@@ -645,6 +645,7 @@ namespace PluginManager
         return value;
     };
 
+	/*
     template<>
     static Vec3 ParseString<Vec3>( const char* c )
     {
@@ -679,6 +680,7 @@ namespace PluginManager
 
         return v;
     };
+	*/
 
     template<>
     static bool ParseString<bool>( const char* c )

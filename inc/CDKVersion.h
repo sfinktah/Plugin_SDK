@@ -5,11 +5,11 @@
 #include "EngineVersion.h"
 
 #if USE_NEW_INCLUDE_PATHS
-#include <CryRenderer/IRenderer.h>
-#include <Cry3DEngine/I3DEngine.h>
+// #include <CryRenderer/IRenderer.h>
+// #include <Cry3DEngine/I3DEngine.h>
 #else
-#include <IRenderer.h>
-#include <I3DEngine.h>
+// #include <IRenderer.h>
+// #include <I3DEngine.h>
 #endif
 
 /* for reuse of compiled CRYENGINE SDK version (its not defined in CDK directly so we have to do it ourself) */
@@ -43,11 +43,12 @@
 #if CDK_VERSION < 344 || CDK_VERSION >= 350
 
 #if USE_NEW_INCLUDE_PATHS
-#include <CryFlowGraph/IFlowSystem.h>
+// #include <CryFlowGraph/IFlowSystem.h>
 #else
-#include <IFlowSystem.h>
+// #include <IFlowSystem.h>
 #endif
 
+/*
 ILINE SOutputPortConfig OutputPortConfig_Null()
 {
     ScopedSwitchToGlobalHeap useGlobalHeap;
@@ -61,6 +62,7 @@ ILINE SInputPortConfig InputPortConfig_Null()
     SInputPortConfig result = {NULL, NULL, NULL, NULL, TFlowInputData( 0, false )};
     return result;
 }
+*/
 #endif
 
 #if CDK_VERSION < 340

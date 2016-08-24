@@ -13,17 +13,20 @@ History:
 - 16:01:2006: Created by Mathieu Pinard
 
 *************************************************************************/
+#ifndef __G2FLOWBASENODE_H__
+#define __G2FLOWBASENODE_H__
+#endif
 
 #ifndef __G2FLOWBASENODE_H__
 #define __G2FLOWBASENODE_H__
 
 #if USE_NEW_INCLUDE_PATHS
-#include <CryFlowGraph/IFlowSystem.h>
+// #include <CryFlowGraph/IFlowSystem.h>
 #else
-#include <IFlowSystem.h>
+// #include <IFlowSystem.h>
 #endif
 
-#include <IActorSystem.h>
+// #include <IActorSystem.h>
 
 //////////////////////////////////////////////////////////////////////////
 // Enum used for templating node base class
