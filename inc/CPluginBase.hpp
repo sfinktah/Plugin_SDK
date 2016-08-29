@@ -71,7 +71,9 @@ namespace PluginManager {
 
 			// LogV(ILog::eAlways, sFormat, ArgList);
 			va_end(ArgList);
+			OutputDebugStringA(buf);
 			printf("Notice: %s\n", buf);
+
 		} virtual void CPluginBase::LogWarning(const char *sFormat, ...) const {
 			char buf[2048] = { 0 };
 
