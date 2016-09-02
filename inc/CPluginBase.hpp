@@ -9,10 +9,11 @@
 #if defined(PLUGINMANAGER_EXPORTS)
 #include <CPluginManager.h>
 #endif
-
+#include <include/capi/cef_base_capi.h>
 #include <Nodes/G2FlowBaseNode.h>
 #include <CPluginBaseMinimal.hpp>
 #include <PMUtils.hpp>
+#include <FLog.h>
 
 namespace PluginManager {
 
@@ -67,7 +68,7 @@ namespace PluginManager {
 			va_list ArgList;
 			va_start(ArgList, sFormat);
 
-			vsprintf_s( buf, sFormat, ArgList );
+			vsprintf_s(buf, sFormat, ArgList);
 
 			// LogV(ILog::eAlways, sFormat, ArgList);
 			va_end(ArgList);
@@ -80,7 +81,7 @@ namespace PluginManager {
 			va_list ArgList;
 			va_start(ArgList, sFormat);
 
-			vsprintf_s( buf, sFormat, ArgList );
+			vsprintf_s(buf, sFormat, ArgList);
 
 			// LogV(ILog::eAlways, sFormat, ArgList);
 			va_end(ArgList);
@@ -91,31 +92,33 @@ namespace PluginManager {
 			va_list ArgList;
 			va_start(ArgList, sFormat);
 
-			vsprintf_s( buf, sFormat, ArgList );
+			vsprintf_s(buf, sFormat, ArgList);
 
 			// LogV(ILog::eAlways, sFormat, ArgList);
 			va_end(ArgList);
 			printf("Error: %s\n", buf);
 		}
 
-		virtual void CPluginBase::LogV(ILog::ELogType nType, const char* sFormat, va_list ArgList) const
+		virtual void CPluginBase::LogV(FLog::ELogType nType, const char* sFormat, va_list ArgList) const
 		{
 			if (!sFormat)
 			{
 				return;
 			}
 
-			string strFormat = "[";
+			std::string strFormat = "[";
 			strFormat += GetName();
 			strFormat += "_";
 			strFormat += PLUGIN_TEXT;
 			strFormat += "] ";
 			strFormat += sFormat;
 
-			if (gEnv && !IsBadReadPtr(gEnv, sizeof(void*)) && gEnv->pSystem && !IsBadReadPtr(gEnv->pSystem, sizeof(void*)) && gEnv->pLog)
-			{
-				gEnv->pLog->LogV(nType, strFormat.c_str(), ArgList);
-			}
+			FLog flog;
+			flog.LogV(nType, strFormat.c_str(), ArgList);
+			//if (gEnv && !IsBadReadPtr(gEnv, sizeof(void*)) && gEnv->pSystem && !IsBadReadPtr(gEnv->pSystem, sizeof(void*)) && gEnv->pLog)
+			//{
+				//gEnv->pLog->LogV(nType, strFormat.c_str(), ArgList);
+			//}
 		};
 	};
 }
