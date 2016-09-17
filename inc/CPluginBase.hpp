@@ -61,6 +61,34 @@ namespace PluginManager {
 			return NULL;
 		};
 
+		// https://msdn.microsoft.com/en-us/library/28d5ce15.aspx
+		virtual void test_of_dynamically_allocated_memory_vsprintf( char * format, ... )
+		{
+			va_list args;
+			int     len;
+			char    *buffer;
+
+			// retrieve the variable arguments
+			va_start( args, format );
+
+			// We are going to add some line feeds here.
+			len = _vscprintf(format, args) // _vscprintf doesn't count
+				+ 1 + 2;                   // terminating '\0'
+
+			// If you're using C99, you can also just use a variable-length
+			// array, so instead of mallocing str, just declare it as "char
+			// str[length+1];" after the call to snprintf. No need to
+			// deallocate it then, as it's on the stack.
+			// -- http://stackoverflow.com/questions/295013/using-sprintf-without-a-manually-allocated-buffer
+			buffer = (char*)malloc( len * sizeof(char) );
+
+			vsprintf( buffer, format, args ); // C4996
+											  // Note: vsprintf is deprecated; consider using vsprintf_s instead
+			strcat(buffer, "\n");
+			puts( buffer );
+			free( buffer );
+		}
+
 		// IPluginLog
 		virtual void CPluginBase::LogAlways(const char *sFormat, ...) const {
 			char buf[2048] = { 0 };
@@ -72,6 +100,7 @@ namespace PluginManager {
 
 			// LogV(ILog::eAlways, sFormat, ArgList);
 			va_end(ArgList);
+			strcat_s(buf, "\n");
 			OutputDebugStringA(buf);
 			printf("Notice: %s\n", buf);
 
@@ -85,6 +114,8 @@ namespace PluginManager {
 
 			// LogV(ILog::eAlways, sFormat, ArgList);
 			va_end(ArgList);
+			strcat_s(buf, "\n");
+			OutputDebugStringA(buf);
 			printf("Warning: %s\n", buf);
 		} virtual void CPluginBase::LogError(const char *sFormat, ...) const {
 			char buf[2048] = { 0 };
@@ -96,6 +127,8 @@ namespace PluginManager {
 
 			// LogV(ILog::eAlways, sFormat, ArgList);
 			va_end(ArgList);
+			strcat_s(buf, "\n");
+			OutputDebugStringA(buf);
 			printf("Error: %s\n", buf);
 		}
 
